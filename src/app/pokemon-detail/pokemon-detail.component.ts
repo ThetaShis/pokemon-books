@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MatOptgroup } from '@angular/material/core';
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PokemonDetailComponent implements OnInit {
 
-  constructor() { }
+  pokemons = POKEMONS;
+  pokemon;
+
+  constructor(
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(map => {
+      const id = +map.get('id')
+      this.pokemon = this.pokemons[id - 1]
+    })
   }
 
 }
